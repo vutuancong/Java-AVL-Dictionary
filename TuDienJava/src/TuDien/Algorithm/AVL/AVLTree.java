@@ -125,15 +125,7 @@ public class AVLTree {
             inOrder(node.right,tu,model);
         }
     }
-//    public Node postOrder(Node node, String tu) {
-//        if (node != null ) {
-//            inOrder(node.left,tu);
-//            if(node)
-//            inOrder(node.right,tu);
-//            return node;
-//        }
-//        return null;
-//    }
+
     Node minValueNode(Node node) {
         Node current = node;
         while (current.left != null) {

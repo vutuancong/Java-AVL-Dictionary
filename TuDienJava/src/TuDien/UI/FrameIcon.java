@@ -5,10 +5,10 @@
  */
 package TuDien.UI;
 
+import TuDien.MySql.LoadData;
 import static TuDien.UI.NewJFrame.NewJFrame;
-import java.awt.event.InputEvent;
-import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,10 +19,14 @@ public class FrameIcon extends javax.swing.JFrame {
     /**
      * Creates new form FrameIcon
      */
-    
+    public static String user;
+    char[] pass;
+    StringBuffer passWord = new StringBuffer();
+    LoadData ld = new LoadData();
+
     public FrameIcon() {
         initComponents();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     /**
@@ -118,14 +122,14 @@ public class FrameIcon extends javax.swing.JFrame {
         jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
         jPasswordField1.setText("jPasswordField1");
         jPasswordField1.setBorder(null);
-        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jPasswordField1FocusGained(evt);
+        jPasswordField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPasswordField1MouseClicked(evt);
             }
         });
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyReleased(evt);
             }
         });
         jPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 260, -1));
@@ -136,14 +140,9 @@ public class FrameIcon extends javax.swing.JFrame {
         jTextField1.setText("Youremail@gmail.com");
         jTextField1.setBorder(null);
         jTextField1.setDisabledTextColor(new java.awt.Color(204, 204, 204));
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
-            }
-        });
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
             }
         });
         jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 260, 30));
@@ -159,9 +158,9 @@ public class FrameIcon extends javax.swing.JFrame {
                 jTextField2MouseClicked(evt);
             }
         });
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
             }
         });
         jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 270, 30));
@@ -193,7 +192,7 @@ public class FrameIcon extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -204,7 +203,7 @@ public class FrameIcon extends javax.swing.JFrame {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 470, 150, 40));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 470, 140, 40));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
@@ -219,58 +218,60 @@ public class FrameIcon extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        // TODO add your handling code here:
+        NewJFrame();
+    }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        for(int i=0;i<pass.length;i++){
+            passWord.append(pass[i]);
+        }
+        if (ld.kiemTra(user, passWord.toString()) == true) {
+            NewJFrame();
+        } else {
+            JOptionPane.showMessageDialog(null, "Username hoặc password không đúng!");
+        }
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jPasswordField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordField1MouseClicked
+        // TODO add your handling code here:
+        jPasswordField1.setText("");
+    }//GEN-LAST:event_jPasswordField1MouseClicked
+
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+        // TODO add your handling code here:
+        jTextField1.setText("");
+    }//GEN-LAST:event_jTextField1MouseClicked
+
+    private void jPasswordField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyReleased
+        // TODO add your handling code here
+        if (jPasswordField1.getPassword() != null) {
+            pass = jPasswordField1.getPassword();
+        }
+    }//GEN-LAST:event_jPasswordField1KeyReleased
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        if (jTextField2.getText().compareTo("") != 0) {
+            user = jTextField2.getText();
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
         // TODO add your handling code here:
         jTextField2.setText("");
     }//GEN-LAST:event_jTextField2MouseClicked
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        // TODO add your handling code here:
-        jTextField1.setText("");
-    }//GEN-LAST:event_jTextField1FocusGained
-
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
-
-    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
-        // TODO add your handling code here:
-        jPasswordField1.setText("");
-    }//GEN-LAST:event_jPasswordField1FocusGained
-
-    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
-        // TODO add your handling code here:
-         if (evt.getModifiers() == InputEvent.BUTTON1_MASK){
-            this.setDefaultCloseOperation(JFrame.NORMAL);
-            NewJFrame();
-            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-         }
-    }//GEN-LAST:event_jPanel3MouseClicked
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-        if(evt.getModifiers() == InputEvent.BUTTON1_MASK){
-            NewJFrame();
-        }
-    }//GEN-LAST:event_jLabel2MouseClicked
-
     /**
      * @param args the command line arguments
      */
-    public static void main (String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
